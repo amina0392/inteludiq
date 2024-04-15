@@ -1,0 +1,1123 @@
+/* couleur de fond du header et du footer */
+$couleurHf:#BDD4F2;
+/* couleur des titres et des boutons */
+$couleurTb:#00AA8C;
+/* couleur du fond */
+$couleurFond:#FFF;
+/* couleur du texte*/
+$couleurTexte:#343a40;
+/* couleur du survol*/
+$couleurSurvol:#F2BFB3;
+
+
+@mixin bordure-survol {
+  transition: border-radius 0.3s;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $couleurSurvol;
+    border-radius: 20px;
+  }
+}
+
+@mixin bouton {
+  background-color: $couleurTb;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+}
+
+@mixin image {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(189, 212, 242, 0.5);
+  margin-bottom: 30px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(116, 172, 246, 0.986);
+  }
+}
+
+@mixin slider {
+  width: 70%;
+  margin: 0 auto;
+
+}
+
+@mixin containerUn {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 0;
+
+  h1 {
+    text-align: center;
+  }
+
+}
+
+@mixin containerDeux {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(159, 46, 136, 0.1);
+  margin: 10px;
+
+  form {
+    margin-bottom: 20px;
+
+    label {
+      color: $couleurTexte;
+      margin-bottom: 5px;
+      display: block;
+      width: 70%;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="file"],
+    textarea {
+      width: 70%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  }
+}
+
+// Police du site
+@font-face {
+  font-family: 'Comic Sans MS';
+  src: url('../polices/comicsansms3-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+* {
+  margin: 0;
+  padding: 0
+}
+
+body {
+  font-family: 'Comic Sans MS', Arial, sans-serif;
+}
+
+textarea {
+  font-family: 'Comic Sans MS', Arial, sans-serif;
+}
+
+input {
+  font-family: 'Comic Sans MS', Arial, sans-serif;
+}
+
+// Pour éviter le scroll horizontal
+html,
+body {
+  overflow-x: hidden
+}
+
+ul {
+  list-style-type: none;
+  list-style-image: none
+}
+
+a {
+  text-decoration: none;
+
+}
+
+h1,
+h2,
+h3 {
+  color: $couleurTb;
+}
+
+p {
+  color: $couleurTexte;
+}
+
+.container {
+  width: 1200px;
+  width: 100%;
+  background-color: $couleurFond;
+}
+
+
+/* Style pour la barre de navigation */
+#menuH {
+  background-color: $couleurHf;
+  overflow: visible;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    li {
+      position: relative;
+
+      a {
+        display: block;
+        color: $couleurTb;
+        font-size: 1.4rem;
+        padding: 14px 16px;
+        text-decoration: none;
+        @include bordure-survol();
+
+        // Ajout pour les sous-menus
+        &.aSousMenu::after {
+          content: '\25BC';
+          position: absolute;
+          right: 8px;
+          top: calc(50% - 0.5rem);
+        }
+      }
+
+      // Styles pour les sous-menus
+      .sousMenu {
+        display: none;
+        position: absolute;
+        top: 80%;
+        left: 4%;
+        background-color: $couleurHf;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+
+        li {
+          a {
+            padding: 10px 20px;
+            color: $couleurTb;
+            font-size: 1.1rem;
+            @include bordure-survol();
+          }
+        }
+      }
+
+      // Afficher les sous-menus au survol
+      &:hover .sousMenu {
+        display: block;
+      }
+    }
+  }
+}
+
+// Styles pour le menu burger
+#menuBurger {
+  background-color: $couleurHf;
+  position: relative;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+// Styles pour le menu burger
+#burgerMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: $couleurHf;
+  z-index: 1000;
+}
+
+#burgerMenu a {
+  color: $couleurTb;
+  @include bordure-survol();
+}
+
+// Styles pour l'icône du burger
+#burgerIcon {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Styles pour l'icône du burger
+#burgerIcon img {
+  width: 70px;
+}
+
+/* Style pour le logo */
+.logo {
+  float: left;
+  margin-right: auto;
+}
+
+.logo img {
+  width: 82px;
+  height: auto;
+}
+
+// Style pour footer
+#menuF {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: $couleurHf;
+}
+
+#menuF p {
+  flex-grow: 1;
+  text-align: center;
+}
+
+#menuF a {
+  color: $couleurTb;
+  padding: 5px 5px;
+  text-decoration: none;
+  @include bordure-survol();
+}
+
+#imgF {
+  width: 40px;
+}
+
+// Style pour la page d'accueil
+
+// Style des titres
+.titre {
+  margin-top: 34px;
+  margin-bottom: 21px;
+}
+
+.titre h1 {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.titre h2 {
+  text-align: center;
+}
+
+.titre p {
+  text-align: center;
+  margin: 0 20px;
+  margin-top: 10px;
+}
+.titre ul li{
+  text-align: center;
+}
+
+// Style pour les sliders
+.slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  .diapo {
+    display: none;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .contenu {
+      position: absolute;
+      bottom: 78%;
+      left: 0;
+      background-color: rgba(4, 69, 72, 0.5);
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(50%);
+
+      h1 {
+        color: #f9efef;
+        margin-top: 0;
+      }
+
+      p {
+        color: #f9efef;
+        text-align: center;
+      }
+
+      button {
+        background-color: $couleurTb;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+        @include bordure-survol();
+      }
+    }
+  }
+
+  .precedent,
+  .suivant {
+    position: absolute;
+    bottom: 69%;
+    background-color: $couleurTb;
+    color: #fff;
+    padding: 5px 5px;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    @include bordure-survol();
+
+    &.precedent {
+      left: 10px;
+    }
+
+    &.suivant {
+      right: 10px;
+    }
+  }
+}
+
+// Style pour la partie résumé
+#resume {
+  margin-top: 70px;
+  text-align: center;
+  margin: 20px;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: $couleurTb;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: $couleurTexte;
+    margin-bottom: 30px;
+  }
+
+  video {
+    @include image();
+    width: 90%;
+  }
+}
+
+// Style pour les commentaires
+.containerComment {
+  @include containerDeux();
+}
+
+.containerComment #formComment {
+  text-align: center;
+}
+
+#commentaire {
+  background-image: url("../images/generic/smileys.png");
+  background-size: 100%;
+  margin-bottom: 10px;
+  background-repeat: no-repeat;
+}
+
+.commentaireBordure {
+  border: 2px solid rgb(0, 174, 255);
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
+  box-sizing: border-box;
+}
+
+/* Style pour la liste des commentaires */
+.commentairesList {
+  list-style-type: none;
+  padding: 0;
+}
+
+
+.commentaireItem {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+
+.commentaireHaut {
+  font-weight: bold;
+  color: #333;
+}
+
+
+.pseudo {
+  margin-right: 10px;
+  color: $couleurTb;
+}
+
+
+.date {
+  color: $couleurTb;
+}
+
+
+.commentaireContenu p {
+  margin: 0;
+}
+#com {
+  
+  text-align: center;
+}
+.btnCom {
+  background-color: $couleurTb;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  @include bordure-survol();
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+width: 35%;
+text-align: center
+}
+
+// Style pour la partie activités
+.sliderContainer {
+  @include slider();
+}
+
+#sliderActivite img {
+  width: 100%;
+}
+
+.containerActivites {
+  margin: 10px;
+  padding: 0 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.articleActivites {
+  width: calc(50% - 15px);
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.colonneActivites {
+  width: 90%; 
+  margin: 0 auto; 
+}
+
+.colonneActivites h2 {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.colonneActivites p {
+  font-size: 0.8rem;
+}
+
+.imgAccueil {
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+.btnActivites {
+  padding: 5px 10px;
+  background-color: $couleurTb;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 30px;
+  margin-top: 10px;
+  @include bordure-survol();
+}
+
+.propositions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+
+.question img {
+  max-width: 22%;
+  height: auto;
+  margin-left: 20px;
+  transition: opacity 0.3s ease; 
+}
+
+/* CSS pour les images désactivées */
+.question img.disabled {
+  opacity: 0.5; 
+  pointer-events: none; 
+}
+/* CSS pour la classe disabled-overlay */
+.question input.disabled {
+  opacity: 0.5; 
+  pointer-events: none; 
+}
+.question h2 {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.audioContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.audioSymbol {
+  position: absolute;
+  top: 50%;
+  right: 92%;
+  transform: translate(-50%, -50%);
+  font-size: 36px; 
+  color: #FF5733; 
+  cursor: pointer; 
+  transition: transform 0.3s ease; 
+}
+
+/* Effet de survol pour le symbole */
+.audioSymbol:hover {
+  transform: scale(1.2); /* Zoom au survol */
+}
+
+/* Style de l'élément audio */
+audio {
+  margin-top: 10px; /* Marge supérieure pour l'éloigner du symbole */
+}
+
+.btn {
+  background-color: $couleurTb;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  @include bordure-survol();
+}
+// Styles pour le scores
+.scoreContainer {
+  background-color: $couleurSurvol;
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0px 0px 5px rgb(4, 173, 149);
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+}
+.scoreValue {
+  font-size: 1rem; 
+  font-weight: bold; 
+  color: $couleurTb; 
+}
+.scoreLabel {
+  font-size: 1rem; 
+  color: $couleurTb; 
+  margin-bottom: 5px; 
+}
+
+
+/* Styles pour le symbole de croix (X rouge) */
+.symbol.correct::after {
+  content: '✓';
+  color: green;
+}
+
+/* Styles pour le symbole de vérification (V vert) */
+.symbol.incorrect::after {
+  content: '✗';
+  color: red;
+}
+
+// Styles pour la partie categorie
+.caracteristique {
+  margin-bottom: 5px;
+  margin: 10px;
+
+  .caractContenu {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .caractContenu h2 {
+    font-size: 1.1rem;
+  }
+
+  .caractContenu p {
+    font-size: 0.8rem;
+  }
+
+  .caractImage {
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 50%;
+      height: auto;
+      @include image();
+    }
+  }
+
+  .caractDiviseur {
+    margin: 40px 0;
+  }
+}
+
+// Styles pour la page inscription et connexion
+.messageErreur {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.containerTrois {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 0;
+}
+
+.containerQuatre {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(159, 46, 136, 0.1);
+  margin: 10px;
+}
+
+.containerQuatre h1 {
+  text-align: center;
+  margin-top: 50px;
+  color: $couleurTb;
+}
+
+.containerQuatre form {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerQuatre label {
+  margin-bottom: 10px;
+}
+
+.containerQuatre input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 70%;
+
+}
+
+.containerQuatre.redirection {
+  margin-bottom: 10px;
+  @include bordure-survol();
+
+}
+
+.containerQuatre button {
+  @include bouton();
+  @include bordure-survol();
+
+}
+
+.containerQuatre img {
+  width: 100%;
+}
+
+.containerQuatre a {
+  color: $couleurTexte;
+}
+
+.rgpdMentions {
+  margin-bottom: 20px;
+  font-size: 1rem;
+
+  input {
+    margin-right: 10px;
+    transform: translateY(2px);
+    width: 5%;
+  }
+
+}
+
+.rgpdMentions a {
+  color: $couleurTexte;
+  @include bordure-survol();
+
+}
+
+// Style pour la page administration
+.containerUn {
+  @include containerUn();
+}
+
+.containerDeux {
+  @include containerDeux();
+}
+
+#idCommentaire,
+#idUtilisateur {
+  width: 20%;
+}
+// Style pour la page liste des messages
+.containerMessage {
+  border: 1px solid #5cc8cb;
+  padding: 10px;
+  max-width: 70%; 
+  margin: 0 auto; 
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.messageList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.messageItem {
+  background-color: #00aa8b1b;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.messageContent {
+  font-size: 16px;
+  padding: 10px;
+}
+
+// Style page de profil
+.containerProfil {
+  @include containerDeux();
+}
+
+.containerProfil h1 {
+  text-align: center;
+  color: $couleurTb;
+  margin-bottom: 20px;
+}
+
+.infosUtilisateur {
+  margin-bottom: 20px;
+}
+
+.infosUtilisateur p {
+  margin: 5px 0;
+}
+
+.commentaires,
+.messages,
+.activites {
+  margin-top: 20px;
+}
+
+.infosUtilisateur h2,
+.commentaires h2,
+.messages h2,
+.activites h2 {
+  margin-bottom: 10px;
+
+}
+
+.commentaires ul,
+.messages ul,
+.activites ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.commentaires ul li,
+.messages ul li,
+.activites ul li {
+  margin-bottom: 10px;
+  color: $couleurTexte;
+}
+
+.commentaires ul li,
+.messages ul li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.activites ul li {
+  font-weight: bold;
+}
+#compte{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#compte a{
+  color: red;
+}
+#compte button{
+  background-color: rgb(243, 78, 78);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  margin-left: 107px;
+}
+#compte img {
+  width: 25%;
+  margin-left: 162px;
+  margin-bottom: 10px;
+}
+// Style pour la page de contact
+.containerQuatre textarea {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.containerQuatre #confidentialite {
+  margin-right: 100px;
+}
+
+// Style pour la page médiathèque
+.gridContainer {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: 10px;
+  text-align: center;
+}
+
+.carte img {
+  width: 70%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.carte h2 {
+  font-size: 1.1rem;
+  padding-bottom: 5px;
+}
+
+// Styles pour les écrans de taille supérieure à 768px (tablettes, ordinateurs)
+@media only screen and (min-width: 768px) {
+
+  // Styles pour le menu classique
+  #menuH ul {
+    display: flex;
+  }
+
+  #menuBurger {
+    display: none;
+  }
+
+  .precedent,
+  .suivant {
+    display: flex;
+
+  }
+.slider .diapo .contenu {
+  bottom: 87%;
+}
+.slider .precedent, .slider .suivant {
+  bottom: 81%;
+}
+
+  // Style pour la connexion et l'inscription
+  .containerTrois {
+    width: 60%;
+    margin-left: 400px;
+    margin-right: auto;
+  }
+
+  .containerQuatre h1 {
+    text-align: center;
+    color: $couleurTb;
+  }
+.messageConfirmation{
+  color: green;
+}
+  // Style pour l'accueil
+
+  .titre {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .titre h1 {
+    text-align: center;
+    font-size: 1.7rem;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .titre h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  #resume {
+    h2 {
+      font-size: 1.4rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+
+    video {
+      @include image();
+      width: 70%;
+    }
+  }
+  .colonneActivites {
+    width: 100%;
+    text-align: center;
+  }
+  .colonneActivites h2 {
+    font-size: 1.4rem;
+  }
+
+  .colonneActivites p {
+    font-size: 1.2rem;
+  }
+
+  .btnActivites {
+    padding: 10px 20px;
+    display: inline-block;
+    margin-left: 15px;
+    margin-top: 10px;
+    @include bordure-survol();
+  }
+
+  .imgAccueil {
+    max-width: 80%;
+    margin-left: 50px;
+    @include image();
+  }
+
+  // Style pour la partie categorie
+  .caracteristique {
+    display: flex;
+  }
+
+  .caracteristique .caractContenu {
+    padding: 51px;
+    text-align: start;
+  }
+
+  .caractContenu {
+    flex: 1;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .caracteristique .caractContenu h2 {
+    font-size: 1.4rem;
+  }
+
+  .caracteristique .caractContenu p {
+    font-size: 1.2rem;
+  }
+
+  .caractImage {
+    flex: 1;
+  }
+
+  .caractDiviseur {
+    margin: 80px 0;
+  }
+
+  // Style pour les pages activités
+  .question img {
+    max-width: 25%;
+    margin-left: 60px;
+  }
+
+  .question h2 {
+    font-size: 1.4rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  // Style pour la page mediatheque
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+
+  }
+
+  .carte {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .carte img {
+    width: 100%;
+  }
+// Style pour la partie commentaire de l'accueil
+.commentaireBordure{
+  width: 50%;
+  padding: 20px;
+}
+}
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+
+  .containerTrois {
+    width: 100%; 
+    margin-left: 0; 
+    margin-right: 0; 
+  }
+
+}
+// Style pour les appareils avec une largeur supérieure à 1200px (écrans plus grands)
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .container {
+    max-width: 1900px;
+  }
+ 
+  .containerActivites {
+    max-width: 1900px;
+  }
+
+  .imgAccueil {
+    margin-left: 92px;
+
+  }
+
+  .containerTrois {
+    width: 40%;
+    margin-left: 418px;
+  }
+
+}
