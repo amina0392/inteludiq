@@ -1,0 +1,36 @@
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+RewriteEngine On
+
+# Redirection des URL non www vers www
+RewriteCond %{HTTP_HOST} ^example.com [NC]
+RewriteRule ^(.*)$ http://www.example.com/$1 [L,R=301]
+
+# Forcer HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Masquer l'extension .php des fichiers
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Bloquer l'accès au fichier .env
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Bloquer l'accès au fichier config.php
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Définir la mise en cache des fichiers CSS et JS
+<FilesMatch "\.(css|js)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
