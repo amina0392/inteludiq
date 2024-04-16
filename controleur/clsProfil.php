@@ -1,19 +1,20 @@
 <?php
 require RACINE . "/modele/bdUtilisateur.php";
 require RACINE . "/modele/bdActivite.php";
+require RACINE . "/modele/bdQuestion.php";
 require RACINE . "/modele/bdCommentaire.php";
 require RACINE . "/modele/bdMessage.php";
 require RACINE . "/controleur/authentification.php";
 
 // Vérifie si l'utilisateur demande la déconnexion
-if(isset($_GET['deconnexion'])) {
+if (isset($_GET['deconnexion'])) {
     deconnexionUtilisateur();
     header("Location: ?action=accueil"); // Redirige à l'accueil après la déconnexion
     exit();
 }
 
 // Vérifie si l'utilisateur est connecté
-if(siUtilisateurConnecte()) {
+if (siUtilisateurConnecte()) {
     // Récupère l'ID de l'utilisateur connecté
     $idUtilisateur = $_SESSION['idUtilisateur'];
 
@@ -30,8 +31,10 @@ if(siUtilisateurConnecte()) {
     $ageUtilisateur = $utilisateur['age'];
 
     $activites = obtenirActivitesSelonAge($ageUtilisateur);
-
+    
+    // Obtenez le cumul des notes par activité pour l'utilisateur actuel
+    $cumulNotesParActivite = calculerCumulNotesParActivite($idUtilisateur);
+   
 }
 
 include RACINE . "/vue/vueProfil.php";
-?>

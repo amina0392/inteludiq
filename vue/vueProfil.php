@@ -11,8 +11,8 @@ include RACINE . "/vue/menu.php";
                 <h2>Informations personnelles</h2>
                 <p><strong>Email :</strong> <?php echo $utilisateur['email']; ?></p>
                 <p><strong>Âge :</strong> <?php echo $utilisateur['age']; ?></p>
-                   <!-- Lien vers la page de modification des informations personnelles -->
-            <a class="btn" href="?action=modifProfil" role="button">Modifier mes informations</a>
+                <!-- Lien vers la page de modification des informations personnelles -->
+                <a class="btn" href="?action=modifProfil" role="button">Modifier mes informations</a>
             </div>
 
             <div class="commentaires">
@@ -20,11 +20,11 @@ include RACINE . "/vue/menu.php";
                 <ul>
                     <?php foreach ($commentaires as $commentaire) : ?>
                         <li>Date :<?php echo $commentaire['_date']; ?> <br>Commentaire :<?php echo $commentaire['libelle']; ?></li>
-                       
+
                     <?php endforeach; ?>
                 </ul>
                 <!-- Lien vers la page de commentaires -->
-            <a class="btn" href="?action=commentaire" role="button">Ajouter un commentaire</a>
+                <a class="btn" href="?action=commentaire" role="button">Ajouter un commentaire</a>
             </div>
 
             <div class="messages">
@@ -35,24 +35,47 @@ include RACINE . "/vue/menu.php";
                     <?php endforeach; ?>
                 </ul>
             </div>
-
-            <?php if (!empty($activites)) : ?>
-                <div class="activites">
-                    <h2>Activités :</h2>
+            <!-- affichage des notes -->
+            <?php if (!empty($activites) && isset($cumulNotesParActivite)) : ?>
+    <div class="activites">
+        <h2>Activités :</h2>
+        <ul>
+            <?php foreach ($activites as $activite) : ?>
+                <li><?php echo $activite['matiere']; ?>
                     <ul>
-                        <?php foreach ($activites as $activite) : ?>
-                            <li><?php echo $activite['matiere']; ?></li>
-                        <?php endforeach; ?>
+                        <?php
+                        // Recherche de l'entrée correspondant à l'ID de l'activité dans $cumulNotesParActivite
+                        $cumul = 0; // Initialisation à 0 si aucune entrée n'est trouvée
+                        foreach ($cumulNotesParActivite as $cumulActivite) {
+                            if ($cumulActivite['idActivite'] == $activite['idActivite']) {
+                                $cumul = $cumulActivite['somme_notes'];
+                                break; // Sortir de la boucle dès qu'une correspondance est trouvée
+                            }
+                        }
+                        ?>
+                        <li>Dernier score: <?php echo $cumul; ?></li>
+                    </ul> 
+                </li> 
+            <?php endforeach; ?>
+        </ul> 
+    </div>
+<?php else : ?>
+    <p>Aucune activité disponible pour l'âge de <?php echo $ageUtilisateur; ?> ans.</p>
+<?php endif; ?>
 
 
-                    </ul>
-                </div>
-            <?php else : ?>
-                <p>Aucune activité disponible pour l'âge de <?php echo $ageUtilisateur; ?> ans.</p>
-            <?php endif; ?>
+
+
+
+
+
+
+
+
+
 
             <div id="compte">
-            <a  href="?action=supCompte" role="button">Supprimer mon compte</a>
+                <a href="?action=supCompte" role="button">Supprimer mon compte</a>
             </div>
         <?php else : echo ($_SESSION['idUtilisateur']) ?>
             <p>Veuillez vous connecter pour accéder à cette page.</p>

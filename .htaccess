@@ -1,16 +1,36 @@
---------------------------------------------------
-### Forbid access _ Your site or a small free comment
-
-# Interdire le listing des repertoires
-Options -Indexes
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
 
 RewriteEngine On
 
-# Interdire l'acces aux dossiers non statiques (ici pour le dossier app)
-RewriteRule ^(app) - [R=403,L]
+# Redirection des URL non www vers www
+RewriteCond %{HTTP_HOST} ^example.com [NC]
+RewriteRule ^(.*)$ http://www.example.com/$1 [L,R=301]
 
-# Interdire l'acces au fichier .env (pour ceux qui utilisent Dotenv)
-<FilesMatch "^.env$">
+# Forcer HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Masquer l'extension .php des fichiers
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Bloquer l'accès au fichier .env
+<Files .env>
     Order allow,deny
     Deny from all
+</Files>
+
+# Bloquer l'accès au fichier config.php
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Définir la mise en cache des fichiers CSS et JS
+<FilesMatch "\.(css|js)$">
+    Header set Cache-Control "max-age=31536000, public"
 </FilesMatch>

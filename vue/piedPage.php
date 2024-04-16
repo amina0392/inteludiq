@@ -10,7 +10,7 @@
   </footer>
  
 <script src="asset/js/nav.js"></script>
-
+<script src="asset/js/fleche.js"></script>
 
 <?php if (!isset($_GET['action']) || $_GET['action'] == 'accueil' || $_GET['action'] == 'defaut'): ?>
     <script src="asset/js/slider.js"></script>

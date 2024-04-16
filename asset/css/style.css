@@ -55,6 +55,7 @@ p {
   width: 1200px;
   width: 100%;
   background-color: #FFF;
+  min-height: 77vh;
 }
 
 /* Style pour la barre de navigation */
@@ -222,11 +223,11 @@ p {
 .slider {
   width: 100%;
   overflow: hidden;
-  position: relative;
 }
 .slider .diapo {
   display: none;
   position: relative;
+  margin-top: 30px;
 }
 .slider .diapo img {
   width: 100%;
@@ -234,7 +235,7 @@ p {
 }
 .slider .diapo .contenu {
   position: absolute;
-  bottom: 78%;
+  bottom: 64%;
   left: 0;
   background-color: rgba(4, 69, 72, 0.5);
   width: 100%;
@@ -246,7 +247,6 @@ p {
 }
 .slider .diapo .contenu h1 {
   color: #f9efef;
-  margin-top: 0;
 }
 .slider .diapo .contenu p {
   color: #f9efef;
@@ -259,6 +259,7 @@ p {
   border: none;
   cursor: pointer;
   margin-top: 10px;
+  margin-right: 100px;
   transition: border-radius 0.3s;
   border-radius: 5px;
 }
@@ -269,7 +270,7 @@ p {
 .slider .precedent,
 .slider .suivant {
   position: absolute;
-  bottom: 69%;
+  bottom: 45%;
   background-color: #00AA8C;
   color: #fff;
   padding: 5px 5px;
@@ -359,7 +360,6 @@ p {
   background-image: url("../images/generic/smileys.png");
   background-size: 100%;
   margin-bottom: 10px;
-  background-repeat: no-repeat;
 }
 
 .commentaireBordure {
@@ -369,6 +369,8 @@ p {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
   box-sizing: border-box;
+  padding: 7px;
+  background-color: rgba(245, 40, 145, 0.5);
 }
 
 /* Style pour la liste des commentaires */
@@ -457,7 +459,6 @@ p {
 .colonneActivites h2 {
   font-size: 0.9rem;
   text-align: center;
-  margin-top: 10px;
 }
 
 .colonneActivites p {
@@ -492,6 +493,7 @@ p {
 
 .question {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .question img {
@@ -522,16 +524,13 @@ p {
 
 .audioContainer {
   position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .audioSymbol {
-  position: absolute;
-  top: 50%;
-  right: 92%;
-  transform: translate(-50%, -50%);
-  font-size: 36px;
-  color: #FF5733;
+  font-size: 27px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -543,7 +542,7 @@ p {
 
 /* Style de l'élément audio */
 audio {
-  margin-top: 10px; /* Marge supérieure pour l'éloigner du symbole */
+  width: 50%; /* Réduire la largeur pour les appareils mobiles */
 }
 
 .btn {
@@ -572,10 +571,10 @@ audio {
   background-color: #F2BFB3;
   border: 2px solid #ccc;
   border-radius: 50px;
-  padding: 10px;
-  margin-bottom: 10px;
-  width: fit-content;
-  margin: 0 auto;
+  padding: 5px;
+  width: 35%;
+  height: 30px;
+  margin: 0 auto 10px;
   text-align: center;
   box-shadow: 0px 0px 5px rgb(4, 173, 149);
   -webkit-border-radius: 50px;
@@ -585,15 +584,14 @@ audio {
 }
 
 .scoreValue {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.8rem;
   color: #00AA8C;
 }
 
 .scoreLabel {
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #00AA8C;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 /* Styles pour le symbole de croix (X rouge) */
@@ -655,7 +653,7 @@ audio {
 }
 
 .containerQuatre {
-  padding: 15px;
+  padding: 62px;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 0 20px rgba(159, 46, 136, 0.1);
@@ -702,7 +700,7 @@ audio {
   padding: 10px 20px;
   border: none;
   cursor: pointer;
-  width: 30%;
+  width: fit-content;
   transition: border-radius 0.3s;
   border-radius: 5px;
 }
@@ -957,8 +955,9 @@ audio {
   .slider .diapo .contenu {
     bottom: 87%;
   }
-  .slider .precedent, .slider .suivant {
-    bottom: 81%;
+  .slider .precedent,
+  .slider .suivant {
+    bottom: -8%;
   }
   .containerTrois {
     width: 60%;
@@ -1063,7 +1062,7 @@ audio {
     margin: 80px 0;
   }
   .question img {
-    max-width: 25%;
+    max-width: 21%;
     margin-left: 60px;
   }
   .question h2 {
@@ -1089,6 +1088,20 @@ audio {
   .commentaireBordure {
     width: 50%;
     padding: 20px;
+  }
+  .scoreContainer {
+    width: 15%;
+    height: 40px;
+  }
+  .scoreValue {
+    font-size: 1rem;
+  }
+  .scoreLabel {
+    font-size: 1rem;
+    color: #00AA8C;
+  }
+  audio {
+    width: 23%; /* Largeur par défaut */
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 1200px) {

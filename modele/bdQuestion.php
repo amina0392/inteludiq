@@ -229,10 +229,70 @@ function verifierReponseLabel($idQuestion, $reponseUtilisateur) {
         error_log("Erreur lors de la vérification de la réponse : " . $e->getMessage());
         die("Erreur lors de la vérification de la réponse : " . $e->getMessage());
     }
+}  
+
+// Fonction pour insérer le score de l'utilisateur dans la table de réponses
+function insererScoreUtilisateur($idUtilisateur, $idQuestion, $note) {
+    try {
+        // Connexion à la base de données
+        $connexion = connexionPDO();
+
+        // Préparation de la requête SQL pour insérer le score dans la table de réponses
+        $sql = "INSERT INTO repondre (idUtilisateur, idQuestion, dateR, note) 
+                VALUES (:idUtilisateur, :idQuestion, NOW(), :note)";
+        $stmt = $connexion->prepare($sql);
+        $stmt->bindParam(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
+        $stmt->bindParam(':idQuestion', $idQuestion, PDO::PARAM_INT);
+        $stmt->bindParam(':note', $note, PDO::PARAM_INT);
+
+        // Exécution de la requête
+        if ($stmt->execute()) {
+            // Retourne vrai si l'insertion a réussi
+            return true;
+        } else {
+            // Retourne faux en cas d'échec de l'insertion
+            return false;
+        }
+    } catch (PDOException $e) {
+        // En cas d'erreur lors de l'insertion du score
+        error_log("Erreur lors de l'insertion du score : " . $e->getMessage());
+        return false;
+    }
 }
 
-    
+function calculerCumulNotesParActivite($idUtilisateur) {
+    try {
+        $connexion = connexionPDO();
+
+        $sql = "SELECT r.idUtilisateur, q.idActivite, SUM(r.note) AS somme_notes
+                FROM repondre r
+                INNER JOIN (
+                    SELECT idUtilisateur, idQuestion, MAX(dateR) AS derniere_date
+                    FROM repondre
+                    GROUP BY idUtilisateur, idQuestion
+                ) derniere_note ON r.idUtilisateur = derniere_note.idUtilisateur 
+                                AND r.idQuestion = derniere_note.idQuestion 
+                                AND r.dateR = derniere_note.derniere_date
+                INNER JOIN question q ON r.idQuestion = q.idQuestion
+                WHERE r.idUtilisateur = :idUtilisateur
+                GROUP BY r.idUtilisateur, q.idActivite";
+
+        $stmt = $connexion->prepare($sql);
+        $stmt->bindParam(":idUtilisateur", $idUtilisateur, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $cumulNotesParActivite = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $connexion = null;
+
+        return $cumulNotesParActivite;
+    } catch (PDOException $e) {
+        // Gérer l'erreur ici
+        die("Erreur lors du calcul du cumul des notes par activité : " . $e->getMessage());
+    }
 }
- 
-    
+
+
+}
 ?>
+

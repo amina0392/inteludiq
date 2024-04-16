@@ -18,10 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($reponseCorrecte) {
         // Ajout d'un message associées à une réponse correcte
         $reponse['message'] = "Bonne réponse!";
+         // Insérer le score dans la table de réponses
+         insererScoreUtilisateur($_SESSION['idUtilisateur'], $data->idQuestion, 1); // Score de 1 pour une réponse correcte
        
     } else {
         // Ajout d'un message associées à une réponse incorrecte
         $reponse['message'] = "Mauvaise réponse!";
+            // Insérer le score dans la table de réponses
+            insererScoreUtilisateur($_SESSION['idUtilisateur'], $data->idQuestion, 0); // Score de 0 pour une réponse incorrecte
     }
 
     // Renvoi la réponse JSON
